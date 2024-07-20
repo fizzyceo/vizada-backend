@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activate Your Account</title>
+    <style>
+        .email-container {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .header {
+            background-color: #f7f7f7;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome to {{ site_name }}</h1>
+        </div>
+        <div class="content">
+            <p>You're receiving this email because you need to finish the activation process on {{ site_name }}.</p>
+            <p>Please click the button below to activate your account:</p>
+            <a href="{{ activate_url }}" class="button">Activate Account</a>
+            <p>If the button above doesn't work, please copy and paste the following link into your browser:</p>
+            <p><a href="{{ activate_url }}">{{ activate_url }}</a></p>
+        </div>
+        <div class="footer">
+            <p>Thanks for using our site!</p>
+            <p>The {{ site_name }} team</p>
+        </div>
+        <div class="image-container">
+            <img src="https://via.placeholder.com/600x200?text=Activate+Your+Account" alt="Activate Account" style="width: 100%; max-width: 600px;">
+        </div>
+    </div>
+</body>
+</html>
