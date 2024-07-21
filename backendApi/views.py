@@ -206,6 +206,7 @@ from django.shortcuts import get_object_or_404
 from datetime import timedelta
 from .serializers import SubscribeSerializer  
 from django.db.models import Q
+from rest_framework import generics
 
 @api_view(['GET'])
 def check_subscriptions(request, user_id):
@@ -228,3 +229,21 @@ def check_subscriptions(request, user_id):
     active_subscriptions = subscriptions.filter(Q(active=0) | Q(active=1))
     serialized_data = SubscribeSerializer(active_subscriptions, many=True).data
     return Response(serialized_data)
+
+
+class CourseListView(generics.ListAPIView): 
+    queryset = Course.objects.all() 
+    serializer_class = CoursegetSerializer 
+ 
+    def get_queryset(self): 
+        queryset = super().get_queryset() 
+        search = self.request.query_params.get('search', None) 
+        if search: 
+            queryset = queryset.filter( 
+                Q(Nomc__icontains=search) | 
+                Q(Descriptionc__icontains=search) | 
+                Q(prix__icontains=search) | 
+                Q(link__icontains=search) | 
+                Q(Id_sc__Nomsouscategorie__icontains=search)  
+            ) 
+        return queryset

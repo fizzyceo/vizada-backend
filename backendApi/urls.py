@@ -19,10 +19,12 @@ urlpatterns=[
     path('api/course/category/<str:category_name>/', views.CoursesByCategory.as_view(), name='courses-by-category'),
     path('api/course/souscategory/<str:subcategory_name>/', views.CoursesBySubCategory.as_view(), name='courses-by-subcategory'),
     path('api/coursedetail/', CourseListView.as_view(), name='course-list'),
+    path('api/courses/', CourseListView.as_view(), name='course-list'),
     #favorite
     path('api/favorite/', FavoriteListCreateView.as_view(), name='favorite-list-create'),
     path('api/favorite/<int:pk>/', FavoriteRetrieveUpdateDeleteView.as_view(), name='favorite-retrieve-update-delete'),    
     path('api/favoritesbyuser/', UserFavoritesView.as_view(), name='user-favorites'),
+    
     #subscribe
     
     path('api/subscribe/', SubscribeListCreateView.as_view(), name='subscribe-list-create'),
