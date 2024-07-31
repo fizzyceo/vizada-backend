@@ -3,7 +3,7 @@ from .models import *
 from .serializers import *
 from rest_framework.generics import  ListCreateAPIView,RetrieveUpdateDestroyAPIView, RetrieveDestroyAPIView,ListAPIView
 from rest_framework.permissions import *
-from .signals import delete_image_file 
+from .signals import delete_image_file
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -51,7 +51,7 @@ class CourseRetrieveUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     serializer_class = CourseSerializer
     def perform_destroy(self, instance):
         delete_image_file(sender=Course, instance=instance)
-        instance.delete()    
+        instance.delete()
 
 class FavoriteListCreateView(ListCreateAPIView):
     queryset = Favorite.objects.all()
@@ -117,15 +117,15 @@ class UserFavoritesView(APIView):
         favorites = Favorite.objects.filter(Id_user=user)
         serializer = FavoriteSerializer(favorites, many=True)
         return Response(serializer.data)
-    
+
 # class CourseListCreateView(ListCreateAPIView):
 #     queryset = Course.objects.all()
-#     serializer_class = CourseSerializer    
-#     def create(self, request, *args, **kwargs):        
+#     serializer_class = CourseSerializer
+#     def create(self, request, *args, **kwargs):
 #         if isinstance(request.data, list):
-#             serializer = self.get_serializer(data=request.data, many=True)        
+#             serializer = self.get_serializer(data=request.data, many=True)
 #         else:
-#             serializer = self.get_serializer(data=request.data)        
+#             serializer = self.get_serializer(data=request.data)
 #         serializer.is_valid(raise_exception=True)
 #         self.perform_create(serializer)
 #         headers = self.get_success_headers(serializer.data)
@@ -149,30 +149,30 @@ class CourseListView(ListAPIView):
 #             data = serializer.data
 #             return Response(data=data)
 #         return Response(serializer.errors, status=400)
-    
 
 
-# @csrf_exempt 
-# def CourseApi(request, id=0): 
-#     if request.method == 'GET': 
- 
-#         rendezvous_list = rendezvous.objects.filter(dateR__date=date_obj).order_by('dateR').reverse() 
-#         serializer = rendezvousplusSerializer(rendezvous_list, many=True) 
-#         return JsonResponse(serializer.data, safe=False) 
-#     elif request.method == 'PUT': 
-#         data = JSONParser().parse(request) 
-#         rdv = rendezvous.objects.get(id=data['id']) 
-#         serializer = rendezvousSerializer(rdv, data=data) 
-#         if serializer.is_valid(): 
-#             serializer.save() 
-#             return JsonResponse("Updated Successfully", safe=False) 
-#         return JsonResponse(serializer.errors,safe=False) 
-#     elif request.method == 'DELETE': 
-#         rdv = rendezvous.objects.get(id=id) 
-#         rdv.delete() 
+
+# @csrf_exempt
+# def CourseApi(request, id=0):
+#     if request.method == 'GET':
+
+#         rendezvous_list = rendezvous.objects.filter(dateR__date=date_obj).order_by('dateR').reverse()
+#         serializer = rendezvousplusSerializer(rendezvous_list, many=True)
+#         return JsonResponse(serializer.data, safe=False)
+#     elif request.method == 'PUT':
+#         data = JSONParser().parse(request)
+#         rdv = rendezvous.objects.get(id=data['id'])
+#         serializer = rendezvousSerializer(rdv, data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse("Updated Successfully", safe=False)
+#         return JsonResponse(serializer.errors,safe=False)
+#     elif request.method == 'DELETE':
+#         rdv = rendezvous.objects.get(id=id)
+#         rdv.delete()
 #         return JsonResponse("Deleted Successfully", safe=False)
 
-# from django.utils import timezone  
+# from django.utils import timezone
 # from django.shortcuts import get_object_or_404
 # from datetime import timedelta
 # @api_view(['GET'])
@@ -180,7 +180,7 @@ class CourseListView(ListAPIView):
 #     user = get_object_or_404(User, id=user_id)
 #     subscriptions = Subscribe.objects.filter(Id_user=user)
 #     today = timezone.now().date()
-    
+
 #     for subscription in subscriptions:
 #         if subscription.Datesub:
 #             start_date = subscription.Datesub.date()
@@ -188,13 +188,13 @@ class CourseListView(ListAPIView):
 #                 end_date = start_date + timedelta(days=30)
 #             elif subscription.typeS == 'yearly':
 #                 end_date = start_date + timedelta(days=365)
-            
+
 #             if today > end_date:
 #                 subscription.active = -1
 #                 subscription.save()
-    
+
 #     active_subscriptions = subscriptions.filter(active=0)
-#     serialized_data = SubscribeSerializer(active_subscriptions, many=True).data  
+#     serialized_data = SubscribeSerializer(active_subscriptions, many=True).data
 #     return Response(serialized_data)
 
 
@@ -204,7 +204,7 @@ from django.utils import timezone
 from .models import Subscribe
 from django.shortcuts import get_object_or_404
 from datetime import timedelta
-from .serializers import SubscribeSerializer  
+from .serializers import SubscribeSerializer
 from django.db.models import Q
 from rest_framework import generics
 
@@ -213,7 +213,7 @@ def check_subscriptions(request, user_id):
     user = get_object_or_404(User, id=user_id)
     subscriptions = Subscribe.objects.filter(Id_user=user)
     today = timezone.now()
-    
+
     for subscription in subscriptions:
         if subscription.DateDebSession:
             start_date = subscription.DateDebSession
@@ -221,29 +221,61 @@ def check_subscriptions(request, user_id):
                 end_date = start_date + timedelta(days=30)
             elif subscription.typeS == 'yearly':
                 end_date = start_date + timedelta(days=365)
-            
+
             if today > end_date:
                 subscription.active = -1
                 subscription.save()
-    
+
     active_subscriptions = subscriptions.filter(Q(active=0) | Q(active=1))
     serialized_data = SubscribeSerializer(active_subscriptions, many=True).data
     return Response(serialized_data)
 
 
-class CourseListView(generics.ListAPIView): 
-    queryset = Course.objects.all() 
-    serializer_class = CoursegetSerializer 
- 
-    def get_queryset(self): 
-        queryset = super().get_queryset() 
-        search = self.request.query_params.get('search', None) 
-        if search: 
-            queryset = queryset.filter( 
-                Q(Nomc__icontains=search) | 
-                Q(Descriptionc__icontains=search) | 
-                Q(prix__icontains=search) | 
-                Q(link__icontains=search) | 
-                Q(Id_sc__Nomsouscategorie__icontains=search)  
-            ) 
+class CourseListsView(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CoursegetSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.query_params.get('search', None)
+
+        if search_query:
+            search_words = search_query.split()
+            # print("voici mots")
+            # print(search_words)
+            search_results = set()
+
+            for word in search_words:
+                print(word)
+                results = queryset.filter(
+                    Q(Nomc__icontains=word) |
+                    Q(Descriptionc__icontains=word) |
+                    Q(prix__icontains=word) |
+                    Q(link__icontains=word) |
+                    Q(Id_sc__Nomsouscategorie__icontains=word)
+                )
+                print(results)
+                search_results.update(results)
+
+            return search_results
+        else:
+            return queryset
+
+
+
+class CourseLists1View(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CoursegetSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.query_params.get('search', None)
+        if search:
+            queryset = queryset.filter(
+                Q(Nomc__icontains=search) |
+                Q(Descriptionc__icontains=search) |
+                Q(prix__icontains=search) |
+                Q(link__icontains=search) |
+                Q(Id_sc__Nomsouscategorie__icontains=search)
+            )
         return queryset

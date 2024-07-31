@@ -50,22 +50,25 @@ def send_custom_email(subject, message, recipient_list, from_email=settings.DEFA
 
 def send_admin_email(subscribe_instance):
    
-    subject = 'New Subscription Created'
+    subject = 'Nouveau abonnement créer'
     user = subscribe_instance.Id_user
     html_content = f"""
     <html>
     <body>
-        <h2>New Subscription Created</h2>
-        <p><strong>User Info:</strong></p>
+        <h2>Vous avez un nouveau abbonenement crréer sur votre site web vizada</h2>
+        <p><strong>Vueillez traiter l'abonnement ,Voici Info user:</strong></p>
         <ul>
             <li><strong>Name:</strong> {user.get_full_name}</li>
             <li><strong>Email:</strong> {user.email}</li>
+            <li><strong>Phone:</strong> {user.get_phone_number}</li>
         </ul>
         <p><strong>Subscription Info:</strong></p>
         <ul>
             <li><strong>Subscription Type:</strong> {subscribe_instance.get_typeS_display()}</li>
             <li><strong>Date of Subscription:</strong> {subscribe_instance.Datesub}</li>
-            <li><strong>prix payé:</strong> {'Yes' if subscribe_instance.active else 'No'}</li>
+            <li><strong>Montant payé:</strong> {subscribe_instance.get_price()}</li>
+                        <li><strong>Catégorie:</strong> {subscribe_instance.get_category_display()}</li>
+
         </ul>
     </body>
     </html>
