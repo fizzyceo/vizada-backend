@@ -199,34 +199,34 @@ DJOSER = {
     'PASSWORD_RESET_TOKEN_EXPIRATION': timedelta(days=1),
 }
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = 'mail.vizada.dz'
-
-# EMAIL_USE_SSL = False
-# EMAIL_USE_TLS = True
-
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'subscription@vizada.dz'
-# EMAIL_HOST_PASSWORD = 'Visada2024!@'
-
-# DEFAULT_FROM_EMAIL = "subscription@vizada.dz"
-# DOMAIN = env("DOMAIN")
-# SITE_NAME = "VIZADA Site"
-
-# ADMIN_EMAIL = 'contact@vizada.dz'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'vda649641@gmail.com'
-EMAIL_HOST_PASSWORD = 'ahce iwuy scvo wyhh'
+EMAIL_HOST = 'mail.vizada.dz'
 
-DEFAULT_FROM_EMAIL = "vda649641@gmail.com"
-DOMAIN = "vizada.dz"
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'subscription@vizada.dz'
+EMAIL_HOST_PASSWORD = 'Visada2024!@'
+
+DEFAULT_FROM_EMAIL = "subscription@vizada.dz"
+DOMAIN = env("DOMAIN")
 SITE_NAME = "VIZADA Site"
 
+# ADMIN_EMAIL = 'contact@vizada.dz'
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'vda649641@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ahce iwuy scvo wyhh'
+
+# DEFAULT_FROM_EMAIL = "vda649641@gmail.com"
+# DOMAIN = "vizada.dz"
+# SITE_NAME = "VIZADA Site"
 
 
-ADMIN_EMAIL = 'redouane.bounedjar@vizada.dz'
+
+ADMIN_EMAIL = 'wassimkrt2002@gmail.com'
 
 
